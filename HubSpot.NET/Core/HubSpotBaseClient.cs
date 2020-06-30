@@ -110,8 +110,8 @@ namespace HubSpot.NET.Core
         private T SendReceiveRequest<T,K>(string path, Method method, K entity) where T: new()
         {
             RestRequest request = ConfigureRequestAuthentication(path, method);
-           
-            if(entity != default)
+
+            if (!(EqualityComparer<K>.Default.Equals(entity, default)))
                 request.AddJsonBody(entity);
             
 
@@ -136,7 +136,7 @@ namespace HubSpot.NET.Core
 
             RestRequest request = ConfigureRequestAuthentication(path, method);
 
-            if (entity != default)
+            if (!(EqualityComparer<T>.Default.Equals(entity, default)))
                 request.AddJsonBody(entity);
 
             IRestResponse response = _client.Execute(request);
