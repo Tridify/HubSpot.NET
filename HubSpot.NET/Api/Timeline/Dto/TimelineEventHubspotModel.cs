@@ -11,7 +11,7 @@
     public class TimelineEventHubSpotModel : IHubSpotModel
     {
         [DataMember(Name = "id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "applicationId")]
         public long ApplicationId { get; set; }
