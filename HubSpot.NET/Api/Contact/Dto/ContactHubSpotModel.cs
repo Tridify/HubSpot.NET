@@ -53,29 +53,6 @@
         [DataMember(Name = "hubspot_owner_id")]
         public long? OwnerId { get; set; }
 
-        // Used for return values
-        [DataMember(Name = "properties")]
-        public Dictionary<string, ContactProperty> Properties { get; set; } = new Dictionary<string, ContactProperty>();
-
-        /// <summary>
-        /// Loads all properties into the ContactProperty Dictionary even from custom contact models
-        /// </summary>
-        public void LoadProperties()
-        {
-            PropertyInfo[] properties = GetType().GetProperties();
-
-            foreach (PropertyInfo prop in properties)
-            {
-                var key = prop.GetCustomAttribute(typeof(DataMemberAttribute)) as DataMemberAttribute;
-                object value = prop.GetValue(this);
-
-                if (value == null || key == null || key.Name == "properties")
-                    continue;
-
-                Properties.Add(key.Name, new ContactProperty(value));
-            }
-        }
-
         [IgnoreDataMember]
         public bool IsNameValue => false;
     }
